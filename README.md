@@ -32,8 +32,3 @@ Notes:
 - The app will create a local sqlite DB by default if you don't set `SQLALCHEMY_DATABASE_URI`.
 - AWS credentials and `S3_BUCKET` should be set when you want to integrate with S3.
 - This is a student project. Security, input validation and error handling are intentionally minimal.
-
-Student TODOs / known quirks:
-- Some typos exist in the code/comments (intentional for student style).
-- No email confirmation on register.
-# CloudComputing
