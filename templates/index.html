@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Content Sharing - Student Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="p-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Content Sharing</h1>
+        <div>
+          {% if user %}
+            Welcome, {{ user.username }} — <a href="{{ url_for('logout') }}">Logout</a>
+          {% else %}
+            <a href="{{ url_for('login') }}">Login</a> | <a href="{{ url_for('register') }}">Register</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <form method="get" action="{{ url_for('search') }}" class="mb-3">
+        <div class="input-group">
+          <input name="q" value="{{ q }}" class="form-control" placeholder="Search files by filename">
+          <button class="btn btn-primary">Search</button>
+        </div>
+      </form>
+
+      {% if user %}
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5>Upload a file (images/docs)</h5>
+          <form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+            <div class="mb-2">
+              <input type="file" name="file" class="form-control">
+            </div>
+            <button class="btn btn-success">Upload</button>
+          </form>
+          <small class="text-muted">Note: file versioning will rename duplicates like report_v2.docx</small>
+        </div>
+      </div>
+      {% else %}
+        <div class="alert alert-info">Login to upload files.</div>
+      {% endif %}
+
+      <h4>Files</h4>
+      <ul class="list-group">
+        {% for row in files %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div>
+              <strong>{{ row.file.filename }}</strong>
+              <div class="small text-muted">Uploaded: {{ row.file.uplaod_date }}</div>
+            </div>
+            <div>
+              <a class="btn btn-sm btn-outline-primary" href="{{ row.url }}" target="_blank">Download</a>
+            </div>
+          </li>
+        {% else %}
+          <li class="list-group-item">No files found.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+ </html>
