@@ -79,6 +79,15 @@ def login_required(f):
     return decorated_function
 
 
+# Ensure database tables are created when the module is imported (helps WSGI runs)
+try:
+    with app.app_context():
+        db.create_all()
+except Exception as _e:
+    # student note: sometimes db isn't ready (RDS not configured)
+    print('DB init warning:', _e)
+
+
 @app.route('/')
 def index():
     q = request.args.get('q', '').strip()
