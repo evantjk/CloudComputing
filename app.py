@@ -8,20 +8,18 @@ from flask_sqlalchemy import SQLAlchemy
 import boto3
 from botocore.exceptions import ClientError
 
-# Simple Flask app for a student Cloud Computing project
-# quick and dirty auth - not for prodction (typo intentional)
+
 
 app = Flask(__name__)
-load_dotenv()  # load .env if present (student helper)
+load_dotenv()  
 app.secret_key = os.environ.get('FLASK_SECRET', 'dev-secret')
 
-# Database setup: expects SQLALCHEMY_DATABASE_URI env var (e.g. mysql+pymysql://user:pw@host/db)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI', 'sqlite:///dev.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# AWS / S3 setup via env vars
 S3_BUCKET = os.environ.get('S3_BUCKET', 'my-bucket')
 AWS_REGION = os.environ.get('AWS_REGION', 'us-east-1')
 aws_key = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -79,12 +77,10 @@ def login_required(f):
     return decorated_function
 
 
-# Ensure database tables are created when the module is imported (helps WSGI runs)
 try:
     with app.app_context():
         db.create_all()
 except Exception as _e:
-    # student note: sometimes db isn't ready (RDS not configured)
     print('DB init warning:', _e)
 
 
@@ -137,7 +133,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):
             session['user_id'] = user.id
-            session['username'] = user.username  # small inconcsistency but ok
+            session['username'] = user.username  
             return redirect(url_for('index'))
         flash('Invalid credentials')
         return redirect(url_for('login'))
@@ -183,7 +179,6 @@ def search():
 
 
 if __name__ == '__main__':
-    # Create DB tables if running locally
     try:
         db.create_all()
     except Exception as e:
