@@ -31,12 +31,14 @@ Type "nano" in cmd
 
 Step 2: Paste your configuration Copy the text below and paste it into the file:
 
-FLASK_SECRET=ProductionSecretKey123
-SQLALCHEMY_DATABASE_URI=mysql+pymysql://admin:admin123@project-db.cgnscq48s80g.us-east-1.rds.amazonaws.com:3306/cloudproject
-S3_BUCKET=my-cloud-project-files-12345
-AWS_REGION=us-east-1
-AWS_ACCESS_KEY_ID=AKIAZM5ASZCJGZ5AUNYB
-AWS_SECRET_ACCESS_KEY=J8lUJgKG+/NAMMA2mj/YS2QdFK5bla8K1LimFPJH
+
+FLASK_SECRET: A random string for session security (e.g., supersecretkey). For security purpose , please refer information via word file.
+SQLALCHEMY_DATABASE_URI:
+For Cloud/Production: Use your RDS MySQL connection string: mysql+pymysql://admin:PASSWORD@ENDPOINT:3306/cloudproject
+S3_BUCKET: The name of your AWS S3 bucket for file storage.
+AWS_REGION: Your AWS region (e.g., us-east-1).
+AWS_ACCESS_KEY_ID: Your AWS IAM Access Key.
+AWS_SECRET_ACCESS_KEY: Your AWS IAM Secret Key.
 
 Step 3: Save and Exit
 
@@ -49,3 +51,4 @@ Press Enter (to save)
 python3 app.py
 
 Access the Website: Open your browser and go to http://13.219.228.129:5000
+
