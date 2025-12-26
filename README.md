@@ -52,3 +52,21 @@ python3 app.py
 
 Access the Website: Open your browser and go to http://13.219.228.129:5000
 
+For coding file :
+
+__pycache__ 
+
+This folder is automatically created by Python when you run your code. It contains "compiled bytecode" (.pyc files) to make the program start faster the next time.
+
+.gitignore
+
+This is a standard configuration file that tells Git which files to ignore. The content (ignoring __pycache__, *.swp, env/) is a standard industry template for Python projects.
+
+requirements.txt
+
+This is a list of the standard open-source libraries used in the project (Flask, boto3, pymysql).
+
+templates (Folder: index.html, login.html, register.html)
+
+I used AI to help debug Jinja2 syntax errors and for scaffolding the HTML forms based on standard Bootstrap documentation.
+
